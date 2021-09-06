@@ -1,0 +1,81 @@
+@import "base.scss";
+
+/*          DESKTOP          */
+/*     SIDEBAR     */
+.nav-container {
+  height: 100vh;
+  width: 85px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  background-color: $night-purple;
+
+  // LOGO
+  .nav-logo {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 3rem;
+    padding-top: 3rem;
+  }
+
+  // LINKS
+  .nav-items {
+    .main-items,
+    .secondary-items {
+      padding: 0px;
+      display: block;
+
+      li {
+        padding: 0.875rem;
+        text-align: center;
+
+        i {
+          font-size: $desktop-size-3;
+          color: $almost-white;
+        }
+      }
+    }
+
+    .secondary-items {
+      position: relative;
+      top: 25rem;
+
+      .user-icon {
+        background-color: $morning-purple;
+        border-radius: 50%;
+        color: $almost-white;
+        font-size: $desktop-size-5;
+        font-weight: 600;
+        display: inline-block;
+        height: 42px;
+        width: 42px;
+        line-height: 42px;
+        margin-bottom: 1rem;
+        text-align: center;
+      }
+    }
+  }
+}
+
+/*     MAIN CONTENT     */
+.content-container {
+  margin-left: 85px;
+  padding: 3rem;
+
+  // MAIN TITLE
+  .page-title {
+    h1 {
+      line-height: 4rem;
+    }
+
+    h4 {
+      padding-bottom: 2rem;
+
+      span {
+        font-weight: 400;
+      }
+    }
+  }
+}

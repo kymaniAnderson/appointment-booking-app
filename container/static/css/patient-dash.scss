@@ -1,0 +1,29 @@
+@import "dash-base.scss";
+
+/*          DESKTOP          */
+/*     MAIN CONTENT     */
+.content-container {
+  .page-content {
+    display: grid;
+    grid-template-columns: 75% auto;
+
+    // (LEFT) CONTENT
+
+    // CHARTS
+
+    //TABLE
+    table {
+      border-collapse: collapse;
+      width: 85%;
+
+      td,
+      th {
+        border: 1px solid $almost-grey;
+        text-align: left;
+        padding: 0.875rem;
+      }
+    }
+
+    // (RIGHT) CONTENT
+  }
+}

@@ -1,0 +1,167 @@
+/*          Fonts          */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap");
+
+/*          Colors          */
+$almost-black: #282321;
+$almost-grey: #e1e1e1;
+$almost-white: #f0f0f0;
+
+$just-white: #ffffff;
+
+$evening-purple: #777cc9;
+$morning-purple: #8d93ef;
+$night-purple: #604caf;
+$sleepy-red: #ed594f;
+
+$boring-blue: #0645ad;
+
+/*          Font Sizes          */
+// Mobile:
+$mobile-size-1: 38px;
+$mobile-size-2: 26px;
+$mobile-size-3: 18px;
+$mobile-size-4: 16px;
+$mobile-size-5: 14px;
+$mobile-size-6: 12px;
+
+// Desktop:
+$desktop-size-1: 72px;
+$desktop-size-2: 48px;
+$desktop-size-3: 28px;
+$desktop-size-4: 22px;
+$desktop-size-5: 20px;
+$desktop-size-6: 16px;
+
+/*          Page Configs          */
+html {
+  scroll-behavior: smooth; //not useful
+}
+
+body {
+  margin: 0;
+  background-color: $just-white;
+}
+
+/*          Text Configs          */
+// Desktop:
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a {
+  line-height: 150%;
+  color: $almost-black;
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Bebas Neue";
+}
+
+h4,
+h5,
+p,
+a,
+i {
+  font-family: "Montserrat";
+}
+
+h1 {
+  font-size: $desktop-size-1;
+}
+
+h2 {
+  font-size: $desktop-size-2;
+  letter-spacing: 8px;
+}
+
+h3 {
+  font-size: $desktop-size-3;
+}
+
+h4,
+i {
+  font-size: $desktop-size-4;
+  font-weight: 600;
+}
+
+h5,
+input,
+select {
+  font-size: $desktop-size-5;
+  font-weight: 400;
+}
+
+p {
+  font-size: $desktop-size-6;
+  font-weight: 400;
+}
+
+a {
+  font-size: $desktop-size-5;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+// Mobile:
+@media only screen and (max-width: 800px) {
+  h1 {
+    font-size: $mobile-size-1;
+  }
+
+  h2 {
+    font-size: $mobile-size-2;
+  }
+
+  h3 {
+    font-size: $mobile-size-3;
+  }
+
+  h4,
+  i {
+    font-size: $mobile-size-4;
+  }
+
+  h5,
+  input,
+  select {
+    font-size: $mobile-size-5;
+  }
+
+  p {
+    font-size: $mobile-size-6;
+  }
+}
+
+/*          Button Configs          */
+// Desktop:
+.purple-btn {
+  font-size: $desktop-size-4;
+  font-family: "Montserrat";
+  background-color: $night-purple;
+  border: none;
+  border-radius: 1.25rem;
+  color: $just-white;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+// Mobile:
+@media only screen and (max-width: 800px) {
+  .purple-btn {
+    font-size: $mobile-size-4;
+    padding: 0.5rem;
+  }
+}
