@@ -1,5 +1,9 @@
 @import "base.scss";
 
+body {
+  background-color: $almost-white;
+}
+
 /*          DESKTOP          */
 /*     SIDEBAR     */
 .nav-container {
@@ -71,7 +75,7 @@
     }
 
     h4 {
-      padding-bottom: 2rem;
+      padding-bottom: 1.5rem;
 
       span {
         font-weight: 400;

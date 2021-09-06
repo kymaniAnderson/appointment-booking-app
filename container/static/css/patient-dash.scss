@@ -5,25 +5,109 @@
 .content-container {
   .page-content {
     display: grid;
-    grid-template-columns: 75% auto;
+    grid-template-columns: 70% auto;
+
+    h3,
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
 
     // (LEFT) CONTENT
+    .content-left {
+      padding-right: 2.5rem;
 
-    // CHARTS
+      // CHARTS
+      .charts {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        margin-bottom: 1rem;
 
-    //TABLE
-    table {
-      border-collapse: collapse;
-      width: 85%;
+        .chart-1,
+        .chart-2 {
+          border-radius: 1.25rem;
+          height: 175px;
+          max-height: 100%;
+          padding: 1rem;
+          background-color: $just-white;
+          text-align: center;
+        }
 
-      td,
-      th {
-        border: 1px solid $almost-grey;
-        text-align: left;
-        padding: 0.875rem;
+        .chart-1 {
+          width: 55%;
+        }
+
+        .chart-2 {
+          width: 35%;
+        }
+      }
+
+      // TABLE
+      .appointment-table {
+        border-radius: 1.25rem;
+        padding: 1rem;
+        background-color: $just-white;
+
+        table {
+          border-collapse: collapse;
+          width: 100%;
+
+          tr {
+            text-align: left;
+            padding: 0.5rem;
+            border: solid;
+            border-width: 1px 0;
+            border-color: $almost-black;
+          }
+
+          tr:first-child {
+            border-top: none;
+          }
+          tr:last-child {
+            border-bottom: none;
+          }
+        }
       }
     }
 
     // (RIGHT) CONTENT
+    .content-right {
+      padding-left: 2.5rem;
+
+      .upcoming-container {
+        border-radius: 1.25rem;
+        padding: 1rem;
+        background-color: $just-white;
+
+        .upcoming {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: space-between;
+
+          .upcoming-card {
+            margin-bottom: 1rem;
+            width: 100%;
+            border-radius: 1.25rem;
+            padding: 1rem;
+            background-color: $almost-grey;
+
+            h5 {
+              text-align: center;
+              font-weight: 600;
+              padding-bottom: 0.5rem;
+            }
+          }
+
+          .upcoming-card:last-child {
+            margin-bottom: 4rem;
+          }
+        }
+
+        .add-button {
+          text-align: right;
+        }
+      }
+    }
   }
 }

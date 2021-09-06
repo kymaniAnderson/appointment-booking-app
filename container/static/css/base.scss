@@ -50,7 +50,8 @@ h3,
 h4,
 h5,
 p,
-a {
+a,
+tr {
   line-height: 150%;
   color: $almost-black;
   margin: 0;
@@ -66,7 +67,8 @@ h4,
 h5,
 p,
 a,
-i {
+i,
+tr {
   font-family: "Montserrat";
 }
 
@@ -91,7 +93,8 @@ i {
 
 h5,
 input,
-select {
+select,
+tr {
   font-size: $desktop-size-5;
   font-weight: 400;
 }
@@ -133,7 +136,8 @@ ul {
 
   h5,
   input,
-  select {
+  select,
+  tr {
     font-size: $mobile-size-5;
   }
 
