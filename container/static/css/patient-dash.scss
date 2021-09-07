@@ -1,5 +1,9 @@
 @import "dash-base.scss";
 
+body {
+  background-color: $just-white;
+}
+
 /*          DESKTOP          */
 /*     MAIN CONTENT     */
 .content-container {
@@ -22,15 +26,16 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
-        margin-bottom: 1rem;
+        margin-bottom: 3rem;
 
         .chart-1,
         .chart-2 {
           border-radius: 1.25rem;
-          height: 175px;
+          height: 225px;
           max-height: 100%;
           padding: 1rem;
-          background-color: $just-white;
+          //background-color: $just-white;
+          background-color: $almost-white;
           text-align: center;
         }
 
@@ -47,7 +52,8 @@
       .appointment-table {
         border-radius: 1.25rem;
         padding: 1rem;
-        background-color: $just-white;
+        //background-color: $just-white;
+        background-color: $almost-white;
 
         table {
           border-collapse: collapse;
@@ -78,7 +84,8 @@
       .upcoming-container {
         border-radius: 1.25rem;
         padding: 1rem;
-        background-color: $just-white;
+        //background-color: $just-white;
+        background-color: $almost-white;
 
         .upcoming {
           display: flex;

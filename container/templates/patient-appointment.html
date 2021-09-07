@@ -11,7 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <!------------------     Style-Sheet    ------------------>
-    <link rel="stylesheet" href="/container/static/css/patient-settings.css" />
+    <link rel="stylesheet" href="/container/static/css/patient-appointment.css" />
 
     <!------------------     Font-Awesome    ------------------>
     <script src="https://kit.fontawesome.com/83715fa62b.js" crossorigin="anonymous"></script>
@@ -73,7 +73,35 @@
 
         <!-------     CONTENT   ------->
         <div class="page-content">
-       
+            <!-------     TITLE   ------->
+            <h3>― BOOK YOUR APPOINTMENT HERE</h3>
+
+            <div class="book-appointment">
+                <!-------     FORM   ------->
+                <form action="POST" enctype="multipart/form-data">
+                    <p class="label">
+                        Set Date:
+                    </p>
+                    <p>
+                        <label><input type="date" id="appointment-date" name="appointment-date" required/></label>
+                    </p>
+                    <p class="label">
+                        Set Time:
+                    </p>
+                    <p>
+                        <label><input type="time" id="appointment-time" name="appointment-time" required/></label>
+                    </p>
+                    <p class="label">
+                        Reason for Appointment:
+                    </p>
+                    <p>
+                        <label><textarea name="appointment-reason" required></textarea></label>
+                    </p>
+                    <p>
+                        <button id="appointment-submit" class="purple-btn" type="submit">Book Appointment</button>
+                    </p>
+                </form>
+            </div>
         </div>
     </div>
 

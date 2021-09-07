@@ -72,14 +72,20 @@ body {
   .page-title {
     h1 {
       line-height: 4rem;
+      letter-spacing: 4px;
     }
 
     h4 {
       padding-bottom: 1.5rem;
+      letter-spacing: 4px;
 
       span {
         font-weight: 400;
       }
     }
+  }
+
+  h3 {
+    letter-spacing: 3px;
   }
 }
