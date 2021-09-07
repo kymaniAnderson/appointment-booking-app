@@ -5,6 +5,8 @@ from flask_pymongo import PyMongo
 from flask import jsonify, request
 from requests import get
 from marshmallow import Schema, fields, ValidationError
+from bson.json_util import dumps
+from json import loads
 from passlib.hash import pbkdf2_sha256
 import uuid
 import socket
@@ -26,6 +28,7 @@ app.config[
 mongo = PyMongo(app)
 
 user_operations = mongo.db.users
+appointment_operations = mongo.db.appointments
 
 # (USER) LOGIN
 @app.route("/login", methods=["POST"])
@@ -124,10 +127,65 @@ def logout():
     }, 200
 
 
-# (PATIENT) BOOK APPOINTMENT
-@app.route("/book-appointment")
-def book_appointment():
-    pass
+####### (APPOINTMENT ROUTES) #######
+@app.route("/appointment", methods=["GET", "POST"])
+def general_appointments():
+    if request.method == "POST":
+
+        # BOOK APPOINTMENTS @PATIENT
+        try:
+            user_id = request.json["user_id"]
+            appointment_date = request.json["appointment_date"]
+            appointment_time = request.json["appointment_time"]
+            appointment_reason = request.json["appointment_reason"]
+
+            raw_data = {
+                "_id": uuid.uuid4().hex,
+                "user_id": user_id,
+                "appointment_date": appointment_date,
+                "appointment_time": appointment_time,
+                "appointment_reason": appointment_reason,
+                "appointment_status": "Pending",
+            }
+
+            appointment_operations.insert_one(raw_data)
+
+            return {
+                "sucess": True,
+                "message": "Appointment saved to database successfully!",
+            }, 200
+
+        except ValidationError as err1:
+            return {
+                "sucess": False,
+                "message": "An error occured while trying to post appointment",
+            }, 400
+    else:
+
+        # VIEW ALL APPOINTMENTS @DOCTOR
+        appointments = appointment_operations.find()
+        return jsonify(loads(dumps(appointments))), 200
+
+
+@app.route("/appointment/<path:id>", methods=["PATCH"])
+def update_appointment_status(id):
+    # UPDATE APPOINTMENT STATUS @DOCTOR
+    filt = {"_id": id}
+    status_update = {"$set": request.json}
+
+    appointment_operations.update_one(filt, status_update)
+    updated_appointment = appointment_operations.find_one(filt)
+
+    return jsonify(loads(dumps(updated_appointment)))
+
+
+@app.route("/personal-appointment/<path:id>", methods=["GET"])
+def get_personal_appointments(id):
+    # VIEW ALL PERSONAL APPOINTMENTS @PATIENT
+    filt = {"user_id": id}
+
+    personal_appointments = appointment_operations.find(filt)
+    return jsonify(loads(dumps(personal_appointments))), 200
 
 
 if __name__ == "__main__":
