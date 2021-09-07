@@ -28,6 +28,7 @@ app.config[
 mongo = PyMongo(app)
 
 user_operations = mongo.db.users
+patient_operations = mongo.db.patients
 appointment_operations = mongo.db.appointments
 
 # (USER) LOGIN
@@ -127,6 +128,60 @@ def logout():
     }, 200
 
 
+####### (PATIENT ROUTES) #######
+@app.route("/medical-profile/<path:id>", methods=["GET", "POST", "PATCH"])
+def medical_profile(id):
+    filt = {"_id": id}
+
+    if request.method == "POST":
+
+        # CREATE MEDICAL PROFILE @PATIENT
+        try:
+            patient_gender = request.json["patient_gender"]
+            patient_dob = request.json["patient_dob"]
+            patient_blood_type = request.json["patient_blood_type"]
+            patient_height = request.json["patient_height"]
+            patient_weight = request.json["patient_weight"]
+
+            raw_data = {
+                "_id": id,
+                "patient_gender": patient_gender,
+                "patient_dob": patient_dob,
+                "patient_blood_type": patient_blood_type,
+                "patient_height": patient_height,
+                "patient_weight": patient_weight,
+            }
+
+            patient_operations.insert_one(raw_data)
+
+            return {
+                "sucess": True,
+                "message": "Patient medical profile saved to database successfully!",
+            }, 200
+
+        except ValidationError as err1:
+            return {
+                "sucess": False,
+                "message": "An error occured while trying to post patient medical profile",
+            }, 400
+
+    elif request.method == "PATCH":
+
+        # UPDATE MEDICAL PROFILE @PATIENT
+        profile_update = {"$set": request.json}
+
+        patient_operations.update_one(filt, profile_update)
+        updated_profile = patient_operations.find_one(filt)
+
+        return jsonify(loads(dumps(updated_profile))), 200
+
+    else:
+
+        # RETURN MEDICAL PROFILE @PATIENT
+        patient_profiles = patient_operations.find()
+        return jsonify(loads(dumps(patient_profiles))), 200
+
+
 ####### (APPOINTMENT ROUTES) #######
 @app.route("/appointment", methods=["GET", "POST"])
 def general_appointments():
@@ -169,8 +224,9 @@ def general_appointments():
 
 @app.route("/appointment/<path:id>", methods=["PATCH"])
 def update_appointment_status(id):
-    # UPDATE APPOINTMENT STATUS @DOCTOR
     filt = {"_id": id}
+
+    # UPDATE APPOINTMENT STATUS @DOCTOR
     status_update = {"$set": request.json}
 
     appointment_operations.update_one(filt, status_update)
