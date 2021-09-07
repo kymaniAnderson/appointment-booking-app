@@ -31,22 +31,30 @@ user_operations = mongo.db.users
 patient_operations = mongo.db.patients
 appointment_operations = mongo.db.appointments
 
-# (USER) LOGIN
+####### (USER ROUTES) #######
 @app.route("/login", methods=["POST"])
 def login():
-    # grab user data from POST
+    # LOGIN USER @ALL
     user_val = {
-        "email": request.json["email"],
-        "password": request.json["password"],
+        "user_email": request.json["user_email"],
+        "user_password": request.json["user_password"],
     }
 
     # ensure user exists
-    if user_operations.find_one({"email": user_val["email"]}):
+    if user_operations.find_one({"user_email": user_val["user_email"]}):
 
-        user = user_operations.find_one({"email": user_val["email"]})
+        user = user_operations.find_one({"user_email": user_val["user_email"]})
 
         # decrypt password and ensure it's correct
-        if pbkdf2_sha256.verify(user_val["password"], user["password"]):
+        if pbkdf2_sha256.verify(user_val["user_password"], user["user_password"]):
+
+            # update user IP
+            filt = {"user_email": user_val["user_email"]}
+
+            user_ip = get("https://api.ipify.org").text
+            user_update = {"$set": {"user_ip": user_ip}}
+
+            user_operations.update_one(filt, user_update)
 
             return {
                 "login": True,
@@ -66,12 +74,12 @@ def login():
         }, 400
 
 
-# (USER) REGISTER
 @app.route("/register", methods=["POST"])
 def register():
+    # REGISTER USERS @ALL
     try:
         # grab user IP
-        ip_addr = get("https://api.ipify.org").text
+        user_ip = get("https://api.ipify.org").text
 
         # ensure password is confirmed
         confirmation = request.json["confirmation"]
@@ -80,18 +88,20 @@ def register():
             # grab user data from POST
             user = {
                 "_id": uuid.uuid4().hex,
-                "fname": request.json["fname"],
-                "lname": request.json["lname"],
-                "email": request.json["email"],
-                "userType": request.json["userType"],
-                "password": request.json["password"],
-                "ip_addr": ip_addr,
+                "user_first_name": request.json["user_first_name"],
+                "user_last_name": request.json["user_last_name"],
+                "user_email": request.json["user_email"],
+                "user_phone": request.json["user_phone"],
+                "user_type": request.json["user_type"],
+                "user_password": request.json["user_password"],
+                "user_ip": user_ip,
             }
+
             # encrypt user password
-            user["password"] = pbkdf2_sha256.hash(user["password"])
+            user["user_password"] = pbkdf2_sha256.hash(user["user_password"])
 
             # ensure user does not already exist before creation
-            if user_operations.find_one({"email": user["email"]}):
+            if user_operations.find_one({"user_email": user["user_email"]}):
 
                 return {
                     "sucess": False,
@@ -119,13 +129,46 @@ def register():
         }, 400
 
 
-# (USER) LOGOUT
 @app.route("/logout")
 def logout():
+    # LOGOUT @ALL
     return {
         "sucess": True,
         "message": "Logout sucessful",
     }, 200
+
+
+@app.route("/delete/<path:id>", methods=["DELETE"])
+def delete_profile(id):
+    filt = {"_id": id}
+    filt_2 = {"user_id": id}
+
+    # DELETE ALL USER DATA @PATIENT
+    # delete user
+    user_profile = user_operations.delete_one(filt)
+    result_1 = (
+        "Deleted sucessfully"
+        if user_profile.deleted_count == 1
+        else "Error occured while trying to delete"
+    )
+
+    # delete patient medical data
+    patient_profile = patient_operations.delete_one(filt)
+    result_2 = (
+        "Deleted sucessfully"
+        if patient_profile.deleted_count == 1
+        else "Error occured while trying to delete"
+    )
+
+    # delete attached appointments
+    appointments = appointment_operations.remove(filt_2)
+    result_3 = "Deleted sucessfully"
+
+    return {
+        "user": result_1,
+        "medical_info": result_2,
+        "appointments": result_3,
+    }
 
 
 ####### (PATIENT ROUTES) #######
