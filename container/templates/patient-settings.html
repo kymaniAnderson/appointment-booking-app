@@ -73,7 +73,155 @@
 
         <!-------     CONTENT   ------->
         <div class="page-content">
-            
+            <div class="option">
+                <!-------     UPDATE   ------->
+                <div class="update-user-profile">
+                    <!-------     TITLE   ------->
+                    <h3>― Update User Profile</h3>
+                    
+                    <!-------     FORM   ------->
+                    <form action="POST" enctype="multipart/form-data">
+                        <p class="label">
+                            First Name:
+                        </p>
+                        <p> 
+                            <label><input type="text" id="fname" name="fname" /></label>
+                        </p>
+                        <p class="label">
+                            Last Name:
+                        </p>
+                        <p>
+                            <label><input type="text" id="lname" name="lname" /></label>
+                        </p>
+                        <p class="label">
+                            Email:
+                        </p>
+                        <p>
+                            <label><input type="text" id="email" name="email" /></label>
+                        </p>
+                        <p class="label"> 
+                            Phone Number:
+                        </p>
+                        <p>
+                            <label><input placeholder=" (876)-XXX-XXXX" type="tel" id="phone-num" name="phone-num" /></label>
+                        </p>
+                        <p>
+                            <button id="update-profile-submit" class="green-btn" type="submit">Update Profile</button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-------     VIEW   ------->
+                <div class="user-profile">
+                    <!-------     TITLE   ------->
+                    <h3>― User Profile</h3>
+                    
+                    <!-------     USER PROFILE   ------->
+                    <h5>
+                        First Name: <span id="view-fname"> Joe</span>
+                    </h5>
+                    <h5>
+                        Last Name: <span id="view-lname"> West</span>
+                    </h5>
+                    <h5>
+                        Email: <span id="view-email"> joewest@email.com</span>
+                    </h5>
+                    <h5>
+                        Phone Number: <span id="view-phone-num"> 8761122111</span>
+                    </h5>
+                </div>
+            </div>
+
+            <div class="option">
+                <!-------     UPDATE   ------->
+                <div class="update-patient-data">
+                    <!-------     TITLE   ------->
+                    <h3>― Update Patient Profile</h3>
+                    
+                    <!-------     FORM   ------->
+                    <form action="POST" enctype="multipart/form-data">
+                        <p class="label"> 
+                            Date of Birth:
+                        </p>
+                        <p> 
+                            <label><input type="date" id="dob" name="dob" /></label>
+                        </p>
+                        <p class="label"> 
+                            Gender:
+                        </p>
+                        <p>
+                            <label>
+                                <select name="gender" id="gender">
+                                <option value="" selected>- Select Gender -</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
+                            </label>
+                        </p>
+                        <p class="label"> 
+                            Blood Type:
+                        </p>
+                        <p>
+                            <label>
+                                <select name="blood-type" id="blood-type">
+                                <option value="" selected>- Select Blood Type -</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                            </label>
+                        </p>
+                        <p class="label"> 
+                            Height:
+                        </p>
+                        <p> 
+                            <label><input type="text" id="height" placeholder="Eg. 5'11" name="height" /></label>
+                        </p>
+                        <p class="label"> 
+                            Weight:
+                        </p>
+                        <p> 
+                            <label><input type="text" id="weight" placeholder="Eg. 160lbs" name="weight" /></label>
+                        </p>
+                        <p>
+                            <button id="update-patient-data-submit" class="green-btn" type="submit">Update Patient Data</button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-------     VIEW   ------->
+                <div class="user-profile">
+                    <!-------     TITLE   ------->
+                    <h3>― Patient Profile</h3>
+                    
+                    <!-------     USER PROFILE   ------->
+                    <h5>
+                        Date of Birth: <span id="view-dob"> June 2 2021</span>
+                    </h5>
+                    <h5>
+                        Gender: <span id="view-lname"> Male</span>
+                    </h5>
+                    <h5>
+                        Blood Type: <span id="view-blood-type"> A+</span>
+                    </h5>
+                    <h5>
+                        Height: <span id="view-height"> 5'3</span>
+                    </h5>
+                    <h5>
+                        Weight: <span id="view-weight"> 190lbs</span>
+                    </h5>
+                </div>
+            </div>
+        
+            <div class="delete-profile">
+                <h3>― Delete Account</h3>
+                <button class="red-btn">Delete Account</button>
+            </div>
         </div>
     </div>
 

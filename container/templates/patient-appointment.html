@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!------------------     Title    ------------------>
+    <title>Med Manager</title>
+    <link rel="icon" href="/container/static/images/logo.svg" type="image/x-icon" />
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!------------------     Style-Sheet    ------------------>
+    <link rel="stylesheet" href="/container/static/css/patient-settings.css" />
+
+    <!------------------     Font-Awesome    ------------------>
+    <script src="https://kit.fontawesome.com/83715fa62b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <!------------------     Sidebar Container    ------------------>
+    <div class="nav-container">
+        <!-------     LOGO   ------->
+        <div class="nav-logo">
+            <img src="/container/static/images/logo.svg" alt="logo">
+        </div>
+
+        <!-------     LINKS   ------->
+        <div class="nav-items">
+            <ul class="main-items">
+                <li>
+                    <a href="patient-dash.html">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="patient-appointment.html">
+                        <i class="fas fa-thumbtack"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="patient-settings.html">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="secondary-items">
+                <li>
+                    <div class="user-icon">
+                        <span>KA</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!------------------     Content Container    ------------------>
+    <div class="content-container">
+        <!-------     MAIN TITLE   ------->
+        <div class="page-title">
+            <h1>BOOK APPOINTMENT</h1>
+            <h4>
+                <i class="far fa-calendar"></i>
+                <span>Wed, 09.01.2021</span>
+            </h4>
+        </div>
+
+        <!-------     CONTENT   ------->
+        <div class="page-content">
+       
+        </div>
+    </div>
+
+    <script src="/container/static/js/patient-appointment.js"></script>
+</body>
+
+</html>

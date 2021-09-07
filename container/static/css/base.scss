@@ -11,8 +11,9 @@ $just-white: #ffffff;
 $evening-purple: #777cc9;
 $morning-purple: #8d93ef;
 $night-purple: #604caf;
-$sleepy-red: #ed594f;
 
+$grassy-green: #2da44e;
+$sleepy-red: #d1350d;
 $boring-blue: #0645ad;
 
 /*          Font Sizes          */
@@ -93,13 +94,13 @@ i {
 
 h5,
 input,
-select,
-tr {
+select {
   font-size: $desktop-size-5;
   font-weight: 400;
 }
 
-p {
+p,
+tr {
   font-size: $desktop-size-6;
   font-weight: 400;
 }
@@ -136,22 +137,23 @@ ul {
 
   h5,
   input,
-  select,
-  tr {
+  select {
     font-size: $mobile-size-5;
   }
 
-  p {
+  p,
+  tr {
     font-size: $mobile-size-6;
   }
 }
 
 /*          Button Configs          */
 // Desktop:
-.purple-btn {
+.purple-btn,
+.red-btn,
+.green-btn {
   font-size: $desktop-size-4;
   font-family: "Montserrat";
-  background-color: $night-purple;
   border: none;
   border-radius: 1.25rem;
   color: $just-white;
@@ -160,6 +162,18 @@ ul {
   text-decoration: none;
   display: inline-block;
   cursor: pointer;
+}
+
+.purple-btn {
+  background-color: $night-purple;
+}
+
+.red-btn {
+  background-color: $sleepy-red;
+}
+
+.green-btn {
+  background-color: $grassy-green;
 }
 
 // Mobile:
