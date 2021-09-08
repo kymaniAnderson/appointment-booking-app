@@ -63,15 +63,25 @@ body {
             text-align: left;
             padding: 0.5rem;
             border: solid;
-            border-width: 1px 0;
-            border-color: $almost-black;
+            border-width: 3px 0;
+            border-color: $almost-grey;
           }
 
-          tr:first-child {
-            border-top: none;
+          thead {
+            tr {
+              font-weight: 600;
+              border-top: none;
+            }
           }
-          tr:last-child {
-            border-bottom: none;
+
+          tbody {
+            tr {
+              border-top: none;
+            }
+
+            tr:hover {
+              background-color: $almost-grey;
+            }
           }
         }
       }

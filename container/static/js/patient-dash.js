@@ -35,7 +35,7 @@ function addTableBody(appointment) {
     var appointmentDate = row.insertCell(1);
     var appointmentTime = row.insertCell(2);
     var appointmentReason = row.insertCell(3);
-    var appointmentStatus = row.insertCell(3);
+    var appointmentStatus = row.insertCell(4);
 
     appointmentID.innerHTML = appointment._id;
     appointmentDate.innerHTML = appointment.appointment_date;
@@ -53,7 +53,7 @@ function addTableHead() {
     var appointmentDateHead = row.insertCell(1);
     var appointmentTimeHead = row.insertCell(2);
     var appointmentReasonHead = row.insertCell(3);
-    var appointmentStatusHead = row.insertCell(3);
+    var appointmentStatusHead = row.insertCell(4);
 
     appointmentIDHead.innerHTML = "Appointment ID";
     appointmentDateHead.innerHTML = "Date";
