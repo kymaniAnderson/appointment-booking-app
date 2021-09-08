@@ -59,6 +59,8 @@ def login():
             return {
                 "login": True,
                 "message": "User logged in sucessful",
+                "user_id": user["_id"],
+                "user_type": user["user_type"],
             }, 200
         else:
 

@@ -1,9 +1,9 @@
 // VARIABLE DECLARATIONS:
 var connectionURL = "http://192.168.100.243:3000";
 
-// window.onload = function () {
-//   sessionStorage.clear();
-// };
+window.onload = function () {
+  sessionStorage.clear();
+};
 
 // LOGIN: 
 document
@@ -11,12 +11,12 @@ document
   .addEventListener("click", function (event) {
     event.preventDefault();
 
-    let email = document.getElementById("login-email").value;
-    let password = document.getElementById("login-password").value;
+    let userEmail = document.getElementById("login-email").value;
+    let userPassword = document.getElementById("login-password").value;
 
     let jsonBody = {
-      email: email,
-      password: password
+      "user_email": userEmail,
+      "user_password": userPassword
     };
 
     fetch(connectionURL.concat("/login"), {
@@ -30,7 +30,8 @@ document
       .then(function (mssg) {
         if (mssg["login"]) {
 
-          //sessionStorage.setItem("data", jsonBody);
+          sessionStorage.setItem("user_id", mssg["user_id"]);
+          sessionStorage.setItem("user_type", mssg["user_type"]);
           window.location.href = "patient-dash.html"
         }
         else {
@@ -49,15 +50,16 @@ document
   .addEventListener("click", function (event) {
     event.preventDefault();
 
-    let fname = document.getElementById("fname").value;
-    let lname = document.getElementById("lname").value;
-    let email = document.getElementById("email").value;
+    let userFirstName = document.getElementById("fname").value;
+    let userLastName = document.getElementById("lname").value;
+    let userEmail = document.getElementById("email").value;
+    let userPhone = document.getElementById("phone").value;
     let userType = document.getElementById("user-type").value;
-    let password = document.getElementById("password").value;
+    let userPassword = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm-password").value;
 
     var confirmation;
-    if (password === confirmPassword) {
+    if (userPassword === confirmPassword) {
 
       confirmation = true;
     }
@@ -67,12 +69,13 @@ document
     }
 
     let jsonBody = {
-      fname: fname,
-      lname: lname,
-      email: email,
-      userType: userType,
-      password: password,
-      confirmation: confirmation
+      "confirmation": confirmation,
+      "user_first_name": userFirstName,
+      "user_last_name": userLastName,
+      "user_email": userEmail,
+      "user_phone": userPhone,
+      "user_type": userType,
+      "user_password": userPassword
     };
 
     fetch(connectionURL.concat("/register"), {
@@ -86,8 +89,17 @@ document
       .then(function (mssg) {
         if (mssg["sucess"]) {
 
-          //sessionStorage.setItem("data", jsonBody);
-          window.location.href = "patient-dash.html"
+          sessionStorage.setItem("user_id", mssg["user_id"]);
+          sessionStorage.setItem("user_type", jsonBody["user_type"]);
+
+          if (jsonBody["user_type"] === "patient") {
+
+            window.location.href = "patient-dash.html";
+          }
+          else {
+
+            window.location.href = "doctor-dash.html";
+          }
         }
         else {
 
