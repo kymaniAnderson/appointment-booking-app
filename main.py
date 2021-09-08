@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_pymongo import PyMongo
+from dotenv import load_dotenv
 
 from flask import jsonify, request
 from requests import get
@@ -9,21 +10,21 @@ from bson.json_util import dumps
 from json import loads
 from passlib.hash import pbkdf2_sha256
 import uuid
+import os
 
 # APP:
 app = Flask(__name__)
+load_dotenv()
 
 # CORS:
 api_config = {
-    "origins": ["http://192.168.100.230", "http://127.0.0.1:5500"],
+    "origins": os.getenv("origins"),
     "methods": ["OPTIONS", "HEAD", "GET", "POST", "PATCH", "DELETE"],
 }
 CORS(app, resources={r"/*": api_config})
 
 # DB:
-app.config[
-    "MONGO_URI"
-] = "mongodb+srv://admin:P98fB292RPizAVAt@cluster0.gtdnk.mongodb.net/medmanagement?retryWrites=true&w=majority"
+app.config["MONGO_URI"] = os.getenv("MONGO_URI")
 mongo = PyMongo(app)
 
 user_operations = mongo.db.users
@@ -299,4 +300,4 @@ def get_personal_appointments(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.100.230", port=5000)
+    app.run(debug=True, host=os.getenv("HOST"), port=os.getenv("PORT"))
