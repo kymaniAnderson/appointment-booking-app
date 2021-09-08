@@ -131,46 +131,54 @@ def register():
         }, 400
 
 
-@app.route("/logout")
-def logout():
-    # LOGOUT @ALL
-    return {
-        "sucess": True,
-        "message": "Logout sucessful",
-    }, 200
-
-
-@app.route("/delete/<path:id>", methods=["DELETE"])
-def delete_profile(id):
+@app.route("/user/<path:id>", methods=["GET", "PATCH", "DELETE"])
+def update_user(id):
     filt = {"_id": id}
     filt_2 = {"user_id": id}
 
-    # DELETE ALL USER DATA @PATIENT
-    # delete user
-    user_profile = user_operations.delete_one(filt)
-    result_1 = (
-        "Deleted sucessfully"
-        if user_profile.deleted_count == 1
-        else "Error occured while trying to delete"
-    )
+    if request.method == "PATCH":
 
-    # delete patient medical data
-    patient_profile = patient_operations.delete_one(filt)
-    result_2 = (
-        "Deleted sucessfully"
-        if patient_profile.deleted_count == 1
-        else "Error occured while trying to delete"
-    )
+        # UPDATE USER @ALL
+        user_update = {"$set": request.json}
 
-    # delete attached appointments
-    appointments = appointment_operations.remove(filt_2)
-    result_3 = "Deleted sucessfully"
+        user_operations.update_one(filt, user_update)
+        updated_user = user_operations.find_one(filt)
 
-    return {
-        "user": result_1,
-        "medical_info": result_2,
-        "appointments": result_3,
-    }
+        return jsonify(loads(dumps(updated_user))), 200
+
+    elif request.method == "DELETE":
+
+        # DELETE ALL USER DATA @PATIENT
+        # delete user
+        user_profile = user_operations.delete_one(filt)
+        result_1 = (
+            "Deleted sucessfully"
+            if user_profile.deleted_count == 1
+            else "Error occured while trying to delete"
+        )
+
+        # delete patient medical data
+        patient_profile = patient_operations.delete_one(filt)
+        result_2 = (
+            "Deleted sucessfully"
+            if patient_profile.deleted_count == 1
+            else "Error occured while trying to delete"
+        )
+
+        # delete attached appointments
+        appointments = appointment_operations.remove(filt_2)
+        result_3 = "Deleted sucessfully"
+
+        return {
+            "user": result_1,
+            "medical_info": result_2,
+            "appointments": result_3,
+        }
+
+    else:
+        # RETURN USER PROFILE @ALL
+        user_profile = patient_operations.find_one(filt)
+        return jsonify(loads(dumps(user_profile))), 200
 
 
 ####### (PATIENT ROUTES) #######
