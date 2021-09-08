@@ -8,6 +8,7 @@ window.onload = function () {
     userType = sessionStorage.getItem("user_type");
 
     userProfileView();
+    medicalProfileView();
 };
 
 // UPDATE USER PROFILE:
@@ -61,7 +62,59 @@ async function userProfileView() {
 }
 
 
+// UPDATE MEDICAL PROFILE:
+document.getElementById("update-patient-data-submit").addEventListener("click", function (event) {
+    event.preventDefault();
 
+    let patientGender = document.getElementById("gender").value;
+    let patientDOB = document.getElementById("dob").value;
+    let patientBloodType = document.getElementById("blood-type").value;
+    let patientHeight = document.getElementById("height").value;
+    let patientWeight = document.getElementById("weight").value;
+
+    jsonBody = {};
+
+    if (patientGender !== "") jsonBody["patient_gender"] = patientGender;
+    if (patientDOB !== "") jsonBody["patient_dob"] = patientDOB;
+    if (patientBloodType !== "") jsonBody["patient_blood_type"] = patientBloodType;
+    if (patientHeight !== "") jsonBody["patient_height"] = patientHeight;
+    if (patientWeight !== "") jsonBody["patient_weight"] = patientWeight;
+
+    fetch(connectionURL.concat("/medical-profile/").concat(userID), {
+        method: "PATCH",
+        body: JSON.stringify(jsonBody),
+        headers: {
+            "Content-type": "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((json) => console.log(json));
+
+    location.reload();
+});
+
+// VIEW MEDICAL PROFILE:
+function getMedical() {
+    return fetch(connectionURL.concat("/medical-profile/").concat(userID))
+        .then((res) => res.json())
+        .then((json) => json);
+}
+
+async function medicalProfileView() {
+    let medical = await getMedical();
+
+    patientGender = document.getElementById("view-gender");
+    patientDOB = document.getElementById("view-dob");
+    patientBloodType = document.getElementById("view-blood-type");
+    patientHeight = document.getElementById("view-height");
+    patientWeight = document.getElementById("view-weight");
+
+    patientGender.innerHTML = medical.patient_gender;
+    patientDOB.innerHTML = medical.patient_dob;
+    patientBloodType.innerHTML = medical.patient_blood_type;
+    patientHeight.innerHTML = medical.patient_height;
+    patientWeight.innerHTML = medical.patient_weight;
+}
 
 // LOGOUT
 function logout() {

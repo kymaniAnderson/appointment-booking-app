@@ -115,6 +115,8 @@ def register():
                 return {
                     "sucess": True,
                     "message": "User stored in database",
+                    "user_id": user["_id"],
+                    "user_type": user["user_type"],
                 }, 200
         else:
 
@@ -230,7 +232,7 @@ def medical_profile(id):
     else:
 
         # RETURN MEDICAL PROFILE @PATIENT
-        patient_profiles = patient_operations.find()
+        patient_profiles = patient_operations.find_one(filt)
         return jsonify(loads(dumps(patient_profiles))), 200
 
 

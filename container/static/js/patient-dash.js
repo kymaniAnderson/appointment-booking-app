@@ -6,6 +6,10 @@ var userType;
 window.onload = function () {
     userID = sessionStorage.getItem("user_id");
     userType = sessionStorage.getItem("user_type");
+    // userInitials = sessionStorage.getItem("user_initials");
+
+    // var userIcon = document.getElementById("user-icon");
+    // userIcon.innerHTML = userInitials;
 
     drawTable();
 };

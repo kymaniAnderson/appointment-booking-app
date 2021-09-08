@@ -94,6 +94,7 @@ document
 
           if (jsonBody["user_type"] === "patient") {
 
+            createMedicalProfile(mssg["user_id"]);
             window.location.href = "patient-dash.html";
           }
           else {
@@ -109,6 +110,28 @@ document
         }
       });
   });
+
+//CREATE MEDICAL PROFILE:
+function createMedicalProfile(id) {
+  let jsonBody = {
+    "patient_gender": "NULL",
+    "patient_dob": "NULL",
+    "patient_blood_type": "NULL",
+    "patient_height": "NULL",
+    "patient_weight": "NULL",
+  };
+
+  fetch(connectionURL.concat("/medical-profile/").concat(id), {
+    method: "POST",
+    body: JSON.stringify(jsonBody),
+    headers: {
+      "Content-type": "application/json",
+    },
+  })
+    .then((res) => res.json())
+    .then((json) => console.log(json));
+
+}
 
 // TOGGLE FORM:
 function toggleLogin() {
