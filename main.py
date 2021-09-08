@@ -9,14 +9,13 @@ from bson.json_util import dumps
 from json import loads
 from passlib.hash import pbkdf2_sha256
 import uuid
-import socket
 
 # APP:
 app = Flask(__name__)
 
 # CORS:
 api_config = {
-    "origins": ["http://192.168.100.243", "http://127.0.0.1:5500"],
+    "origins": ["http://192.168.100.230", "http://127.0.0.1:5500"],
     "methods": ["OPTIONS", "HEAD", "GET", "POST", "PATCH", "DELETE"],
 }
 CORS(app, resources={r"/*": api_config})
@@ -177,7 +176,7 @@ def update_user(id):
 
     else:
         # RETURN USER PROFILE @ALL
-        user_profile = patient_operations.find_one(filt)
+        user_profile = user_operations.find_one(filt)
         return jsonify(loads(dumps(user_profile))), 200
 
 
@@ -298,4 +297,4 @@ def get_personal_appointments(id):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, host="192.168.100.243", port=3000)
+    app.run(debug=True, host="192.168.100.230", port=5000)
