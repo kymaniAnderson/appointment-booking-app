@@ -1,0 +1,66 @@
+@import "dash-base.scss";
+
+body {
+  background-color: $just-white;
+}
+
+/*          DESKTOP          */
+/*     MAIN CONTENT     */
+.content-container {
+  .page-content {
+    h3,
+    h2 {
+      text-align: center;
+      margin-bottom: 1rem;
+    }
+
+    // CONTENT
+    .content {
+      padding-right: 2.5rem;
+
+      // TABLE
+      .patient-table {
+        border-radius: 1.25rem;
+        padding: 1rem;
+        //background-color: $just-white;
+        background-color: $almost-white;
+
+        table {
+          border-collapse: collapse;
+          width: 100%;
+
+          tr {
+            text-align: left;
+            padding: 0.5rem;
+            border: solid;
+            border-width: 3px 0;
+            border-color: $almost-grey;
+          }
+
+          thead {
+            tr {
+              font-weight: 600;
+              border-top: none;
+            }
+          }
+
+          tbody {
+            tr {
+              border-top: none;
+
+              .purple-btn {
+                font-size: $mobile-size-4;
+                padding: 0.5rem;
+                margin-left: 0.875rem;
+              }
+            }
+
+            tr:hover {
+              background-color: $almost-grey;
+            }
+          }
+        }
+      }
+    }
+  }
+}

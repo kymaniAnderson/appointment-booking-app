@@ -180,7 +180,9 @@ ul {
 
 // Mobile:
 @media only screen and (max-width: 800px) {
-  .purple-btn {
+  .purple-btn,
+  .green-btn,
+  .red-btn {
     font-size: $mobile-size-4;
     padding: 0.5rem;
   }
