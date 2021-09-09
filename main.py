@@ -183,6 +183,14 @@ def update_user(id):
         return jsonify(loads(dumps(user_profile))), 200
 
 
+@app.route("/users", methods=["GET"])
+def view_users():
+
+    # RETURN USER PROFILE @DOCTOR
+    user_profiles = user_operations.find()
+    return jsonify(loads(dumps(user_profiles))), 200
+
+
 ####### (PATIENT ROUTES) #######
 @app.route("/medical-profile/<path:id>", methods=["GET", "POST", "PATCH"])
 def medical_profile(id):
@@ -232,7 +240,7 @@ def medical_profile(id):
 
     else:
 
-        # RETURN MEDICAL PROFILE @PATIENT
+        # RETURN MEDICAL PROFILE @ALL
         patient_profiles = patient_operations.find_one(filt)
         return jsonify(loads(dumps(patient_profiles))), 200
 

@@ -61,7 +61,7 @@
     </div>
 
     <!------------------     Content Container    ------------------>
-    <div class="content-container">
+    <div id="blur" class="content-container">
         <!-------     MAIN TITLE   ------->
         <div class="page-title">
             <h1>PATIENTS</h1>
@@ -73,8 +73,6 @@
 
         <!-------     CONTENT   ------->
         <div class="page-content">
-
-            <!---------------     LEFT   --------------->
             <div class="content">
                 <!-------     TABLE   ------->
                 <h3>PATIENT MEDICALS</h3>
@@ -84,7 +82,31 @@
                 </div>
             </div>
         </div>
+    </div>
 
+    <!------------------     Medical Popup    ------------------>
+    <div class="popup" id="popup">
+        <!-------     BACK BTN   ------->
+        <a class="back-btn" id="back">
+            <i class="fas fa-arrow-left"></i><br><br>
+        </a>
+    
+        <!-------     USER MEDICAL   ------->
+        <h5>
+            <b>Gender:</b> <span id="view-gender"> </span>
+        </h5>
+        <h5>
+            <b>Date of Birth:</b> <span id="view-dob"> </span>
+        </h5>
+        <h5>
+            <b>Blood Type:</b> <span id="view-blood-type"> </span>
+        </h5>
+        <h5>
+            <b>Height:</b> <span id="view-height"> </span>
+        </h5>
+        <h5>
+            <b>Weight:</b><span id="view-weight"> </span>
+        </h5>
     </div>
 
     <script src="/container/static/js/doctor-view-patients.js"></script>

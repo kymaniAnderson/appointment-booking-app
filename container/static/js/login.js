@@ -32,7 +32,15 @@ document
 
           sessionStorage.setItem("user_id", mssg["user_id"]);
           sessionStorage.setItem("user_type", mssg["user_type"]);
-          window.location.href = "patient-dash.html"
+
+          if (mssg["user_type"] === "patient") {
+
+            window.location.href = "patient-dash.html";
+          }
+          else {
+
+            window.location.href = "doctor-dash.html";
+          }
         }
         else {
 
