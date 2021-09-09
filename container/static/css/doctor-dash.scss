@@ -53,6 +53,12 @@ body {
                 font-size: $mobile-size-4;
                 padding: 0.5rem;
                 font-weight: 500;
+                border-radius: 0.625rem;
+              }
+
+              .green-btn:hover,
+              .red-btn:hover {
+                opacity: 0.75;
               }
 
               .red-btn {

@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!------------------     Title    ------------------>
+    <title>Med Manager</title>
+    <link rel="icon" href="/container/static/images/logo.svg" type="image/x-icon" />
+
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <!------------------     Style-Sheet    ------------------>
+    <link rel="stylesheet" href="/container/static/css/doctor-settings.css" />
+
+    <!------------------     Font-Awesome    ------------------>
+    <script src="https://kit.fontawesome.com/83715fa62b.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+     <!------------------     Sidebar Container    ------------------>
+     <div class="nav-container">
+        <!-------     LOGO   ------->
+        <div class="nav-logo">
+            <img src="/container/static/images/logo.svg" alt="logo">
+        </div>
+
+        <!-------     LINKS   ------->
+        <div class="nav-items">
+            <ul class="main-items">
+                <li>
+                    <a href="doctor-dash.html">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="doctor-view-patients.html">
+                        <i class="fas fa-user-injured"></i>
+                    </a>
+                </li>
+                <li>
+                    <a href="doctor-settings.html">
+                        <i class="fas fa-cog"></i>
+                    </a>
+                </li> 
+            </ul>
+
+            <ul class="secondary-items">
+                <li>
+                    <div class="user-icon">
+                        <span>KA</span>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="logout()">
+                        <i class="fas fa-sign-out-alt"></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <!------------------     Content Container    ------------------>
+    <div class="content-container">
+        <!-------     MAIN TITLE   ------->
+        <div class="page-title">
+            <h1>SETTINGS</h1>
+            <h4>
+                <i class="far fa-calendar"></i>
+                <span>Wed, 09.01.2021</span>
+            </h4>
+        </div>
+
+        <!-------     CONTENT   ------->
+        <div class="page-content">
+            <div class="option">
+                <!-------     UPDATE   ------->
+                <div class="update-user-profile">
+                    <!-------     TITLE   ------->
+                    <h3>― Update User Profile</h3>
+                    
+                    <!-------     FORM   ------->
+                    <form action="POST" enctype="multipart/form-data">
+                        <p class="label">
+                            First Name:
+                        </p>
+                        <p> 
+                            <label><input type="text" id="fname" name="fname" /></label>
+                        </p>
+                        <p class="label">
+                            Last Name:
+                        </p>
+                        <p>
+                            <label><input type="text" id="lname" name="lname" /></label>
+                        </p>
+                        <p class="label">
+                            Email:
+                        </p>
+                        <p>
+                            <label><input type="text" id="email" name="email" /></label>
+                        </p>
+                        <p class="label"> 
+                            Phone Number:
+                        </p>
+                        <p>
+                            <label><input placeholder=" (876)-XXX-XXXX" type="tel" id="phone-num" name="phone-num" /></label>
+                        </p>
+                        <p>
+                            <button id="update-profile-submit" class="green-btn" type="submit">Update Profile</button>
+                        </p>
+                    </form>
+                </div>
+
+                <!-------     VIEW   ------->
+                <div class="user-profile">
+                    <!-------     TITLE   ------->
+                    <h3>― User Profile</h3>
+                    
+                    <!-------     USER PROFILE   ------->
+                    <h5>
+                        First Name: <span id="view-fname"> </span>
+                    </h5>
+                    <h5>
+                        Last Name: <span id="view-lname"> </span>
+                    </h5>
+                    <h5>
+                        Email: <span id="view-email"> </span>
+                    </h5>
+                    <h5>
+                        Phone Number: <span id="view-phone-num"> </span>
+                    </h5>
+                </div>
+            </div>
+        
+            <div class="delete-profile">
+                <h3>― Delete Account</h3>
+                <button class="red-btn" onclick="deleteAcc()">Delete Account</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/container/static/js/doctor-settings.js"></script>
+</body>
+
+</html>
