@@ -1,6 +1,8 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_pymongo import PyMongo
+import sendgrid
+from sendgrid.helpers.mail import Mail, Email, To, Content
 from dotenv import load_dotenv
 
 from flask import jsonify, request
@@ -9,6 +11,7 @@ from marshmallow import Schema, fields, ValidationError
 from bson.json_util import dumps
 from json import loads
 from passlib.hash import pbkdf2_sha256
+
 import uuid
 import os
 
@@ -18,7 +21,7 @@ load_dotenv()
 
 # CORS:
 api_config = {
-    "origins": os.getenv("origins"),
+    "origins": os.getenv("ORIGINS"),
     "methods": ["OPTIONS", "HEAD", "GET", "POST", "PATCH", "DELETE"],
 }
 CORS(app, resources={r"/*": api_config})
@@ -30,6 +33,10 @@ mongo = PyMongo(app)
 user_operations = mongo.db.users
 patient_operations = mongo.db.patients
 appointment_operations = mongo.db.appointments
+
+# EMAILS
+my_sg = sendgrid.SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
+from_email = Email(os.getenv("FROM_EMAIL"))
 
 ####### (USER ROUTES) #######
 @app.route("/login", methods=["POST"])
@@ -113,6 +120,21 @@ def register():
             else:
 
                 user_operations.insert_one(user)
+
+                # send email verification
+                to_email = To(user["user_email"])
+                subject = "Welcome to MedManagment!"
+                content = Content(
+                    "text/plain",
+                    "Your Medmanagement account was sucessfully registered!",
+                )
+
+                mail = Mail(from_email, to_email, subject, content)
+                mail_json = mail.get()
+
+                # send an HTTP POST request to /mail/send
+                response = my_sg.client.mail.send.post(request_body=mail_json)
+
                 return {
                     "sucess": True,
                     "message": "User stored in database",
@@ -290,10 +312,53 @@ def update_appointment_status(id):
     filt = {"_id": id}
 
     # UPDATE APPOINTMENT STATUS @DOCTOR
-    status_update = {"$set": request.json}
+    update = request.json["appointment_status"]
+    doctor_id = request.json["user_id"]
+
+    status_update = {"$set": {"appointment_status": update}}
 
     appointment_operations.update_one(filt, status_update)
     updated_appointment = appointment_operations.find_one(filt)
+
+    # send email update on status
+    patient = user_operations.find_one({"_id": updated_appointment["user_id"]})
+    doctor = user_operations.find_one({"_id": doctor_id})
+
+    message_body = "Hey there " + patient["user_first_name"] + " 👋,\n\n"
+    message_body = (
+        message_body + "Your appointment status has changed here are the details:\n"
+    )
+    message_body = (
+        message_body + "\tStatus: " + updated_appointment["appointment_status"] + "\n"
+    )
+    message_body = (
+        message_body + "\tDate: " + updated_appointment["appointment_date"] + "\n"
+    )
+    message_body = (
+        message_body + "\tTime: " + updated_appointment["appointment_time"] + "\n"
+    )
+    message_body = (
+        message_body
+        + "\tDoctor's Name: "
+        + doctor["user_first_name"]
+        + " "
+        + doctor["user_last_name"]
+        + "\n"
+    )
+    message_body = message_body + "\tDoctor's Email: " + doctor["user_email"]
+
+    to_email = To(patient["user_email"])
+    subject = "Appointment Status Update"
+    content = Content(
+        "text/plain",
+        message_body,
+    )
+
+    mail = Mail(from_email, to_email, subject, content)
+    mail_json = mail.get()
+
+    # send an HTTP POST request to /mail/send
+    response = my_sg.client.mail.send.post(request_body=mail_json)
 
     return jsonify(loads(dumps(updated_appointment)))
 

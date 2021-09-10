@@ -83,7 +83,8 @@ function addTableHead() {
 function updateAppointment(status, id) {
 
     jsonBody = {
-        "appointment_status": status
+        "appointment_status": status,
+        "user_id": userID
     };
 
     fetch(connectionURL.concat("/appointment/").concat(id), {
