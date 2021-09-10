@@ -94,9 +94,15 @@ def register():
         confirmation = request.json["confirmation"]
         if confirmation:
 
+            try:
+                user_id = request.json["test_id"]
+
+            except Exception as e:
+                user_id = uuid.uuid4().hex
+
             # grab user data from POST
             user = {
-                "_id": uuid.uuid4().hex,
+                "_id": user_id,
                 "user_first_name": request.json["user_first_name"],
                 "user_last_name": request.json["user_last_name"],
                 "user_email": request.json["user_email"],

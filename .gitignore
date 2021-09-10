@@ -3,4 +3,3 @@ __pycache__
 container/static/**/*.map
 container/static/**/*.css
 .env
-test_main.py
