@@ -5,7 +5,7 @@ try:
 except Exception as e:
     print("Modules may be missing {} ".format(e))
 
-############## TEST VARIABLES ##############
+############# TEST VARIABLES #############
 good_user_register = {
     "test_id": "UserTestID-0101010101010101",
     "user_first_name": "UserTestFirstName",
