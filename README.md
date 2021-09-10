@@ -12,3 +12,8 @@
 ## 🏃‍ 💨 💨 💨 SPRINT 3 ✅:
 
 1. Connect doctor JS to backend
+
+## 🏃‍ 💨 💨 💨 💨 SPRINT 4 ✅:
+
+1. Add email on key events
+2. Basic unit testing
