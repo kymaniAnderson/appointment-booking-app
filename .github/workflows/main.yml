@@ -38,5 +38,12 @@ jobs:
         only-check: 'no'
         
     - name: Test with unittest
+      env: 
+        ORIGINS: ${{ secrets.ORIGINS }}
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+        SENDGRID_API_KEY: ${{ secrets.SENDGRID_API_KEY }}
+        FROM_EMAIL: ${{ secrets.FROM_EMAIL }}
+        HOST: ${{ secrets.HOST }}
+        PORT: ${{ secrets.PORT }}
       run: |
         python -m unittest discover -p 'test_*.py'
