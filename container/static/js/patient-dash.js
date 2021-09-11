@@ -2,6 +2,12 @@
 var connectionURL = "http://192.168.100.230:3000";
 var userID;
 var userType;
+var today;
+
+var status1 = 0, status2 = 0, status3 = 0, status4 = 0;
+var pieChart;
+var xAxis, yAxis;
+var barChart;
 
 window.onload = function () {
     userID = sessionStorage.getItem("user_id");
@@ -12,6 +18,10 @@ window.onload = function () {
     // userIcon.innerHTML = userInitials;
     getExtras();
     drawTable();
+
+    setTimeout(function () {
+        drawCharts();
+    }, 250);
 };
 
 function getExtras() {
@@ -19,7 +29,11 @@ function getExtras() {
         .then((res) => res.json())
         .then(function (extras) {
             var extrasDate = document.getElementById("date");
-            extrasDate.innerHTML = extras["date"];
+            var date = extras["date"];
+
+            today = date.substr(11, 4).concat(date.substr(8, 2)).concat(date.substr(5, 2));
+
+            extrasDate.innerHTML = date;
         });
 }
 
@@ -33,7 +47,20 @@ async function drawTable() {
     let appointments = await getAppointments();
 
     appointments.forEach((appointment) => {
+        var temp = appointment.appointment_date;
+        var appointmentDate = temp.substr(0, 4).concat(temp.substr(5, 2)).concat(temp.substr(8, 2));
+        console.log(appointmentDate);
+        if (appointment.appointment_status !== "Completed" && appointmentDate < today) {
+
+            updateAppointment("Completed", appointment._id);
+        }
+
         addTableBody(appointment);
+
+        if (appointment.appointment_status === "Pending") status1++;
+        if (appointment.appointment_status === "Approved") status2++;
+        if (appointment.appointment_status === "Declined") status3++;
+        if (appointment.appointment_status === "Completed") status4++;
     });
     addTableHead();
 }
@@ -86,6 +113,70 @@ function addTableHead() {
     appointmentTimeHead.innerHTML = "Time";
     appointmentReasonHead.innerHTML = "Reason";
     appointmentStatusHead.innerHTML = "Status";
+}
+
+function drawCharts() {
+    var chart1 = document.getElementById('chart-1').getContext('2d');
+    barChart = new Chart(chart1, {
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        },
+
+        type: 'bar',
+        data: {
+            labels: ["Pending", "Approved", "Declined", "Complete"],
+            datasets: [{
+                data: [status1, status2, status3, status4],
+                backgroundColor: ["#f6bd3a", "#2da44e", "#d1350d", "#282321"],
+                hoverOffset: 4
+            }]
+        }
+    });
+
+    var chart2 = document.getElementById('chart-2').getContext('2d');
+    pieChart = new Chart(chart2, {
+        options: {
+            plugins: {
+                legend: {
+                    display: false
+                }
+            }
+        },
+
+        type: 'doughnut',
+        data: {
+            labels: ["Pending", "Approved", "Declined", "Complete"],
+            datasets: [{
+                data: [status1, status2, status3, status4],
+                backgroundColor: ["#f6bd3a", "#2da44e", "#d1350d", "#282321"],
+                hoverOffset: 4
+            }]
+        }
+    });
+}
+
+function updateAppointment(status, id) {
+
+    jsonBody = {
+        "appointment_status": status,
+        "user_id": userID
+    };
+
+    fetch(connectionURL.concat("/appointment/").concat(id), {
+        method: "PATCH",
+        body: JSON.stringify(jsonBody),
+        headers: {
+            "Content-type": "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((json) => console.log(json));
+
+    location.reload();
 }
 
 function logout() {

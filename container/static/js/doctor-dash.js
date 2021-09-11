@@ -2,6 +2,7 @@
 var connectionURL = "http://192.168.100.230:3000";
 var userID;
 var userType;
+var today;
 
 window.onload = function () {
     userID = sessionStorage.getItem("user_id");
@@ -16,7 +17,11 @@ function getExtras() {
         .then((res) => res.json())
         .then(function (extras) {
             var extrasDate = document.getElementById("date");
-            extrasDate.innerHTML = extras["date"];
+            var date = extras["date"];
+
+            today = date.substr(11, 4).concat(date.substr(8, 2)).concat(date.substr(5, 2));
+
+            extrasDate.innerHTML = date;
         });
 }
 
@@ -30,6 +35,14 @@ async function drawTable() {
     let appointments = await getAppointments();
 
     appointments.forEach((appointment) => {
+        var temp = appointment.appointment_date;
+        var appointmentDate = temp.substr(0, 4).concat(temp.substr(5, 2)).concat(temp.substr(8, 2));
+
+        if (appointment.appointment_status !== "Completed" && appointmentDate < today) {
+
+            // updateAppointment("Completed", appointment._id);
+        }
+
         addTableBody(appointment);
     });
     addTableHead();
