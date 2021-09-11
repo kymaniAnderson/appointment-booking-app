@@ -4,10 +4,19 @@ var userID;
 var userType;
 
 window.onload = function () {
-    userID = sessionStorage.getItem("user_id");
-    userType = sessionStorage.getItem("user_type");
+    if (sessionStorage.getItem("user_id") === null) {
 
-    drawTable();
+        alert("Please login to continue.")
+        logout();
+    }
+    else {
+
+
+        userID = sessionStorage.getItem("user_id");
+        userType = sessionStorage.getItem("user_type");
+
+        drawTable();
+    }
 };
 
 function getUsers() {

@@ -10,18 +10,23 @@ var xAxis, yAxis;
 var barChart;
 
 window.onload = function () {
-    userID = sessionStorage.getItem("user_id");
-    userType = sessionStorage.getItem("user_type");
-    // userInitials = sessionStorage.getItem("user_initials");
+    if (sessionStorage.getItem("user_id") === null) {
 
-    // var userIcon = document.getElementById("user-icon");
-    // userIcon.innerHTML = userInitials;
-    getExtras();
-    drawTable();
+        alert("Please login to continue.")
+        logout();
+    }
+    else {
 
-    setTimeout(function () {
-        drawCharts();
-    }, 250);
+        userID = sessionStorage.getItem("user_id");
+        userType = sessionStorage.getItem("user_type");
+
+        getExtras();
+        drawTable();
+
+        setTimeout(function () {
+            drawCharts();
+        }, 250);
+    }
 };
 
 function getExtras() {

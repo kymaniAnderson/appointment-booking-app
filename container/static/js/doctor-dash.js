@@ -5,11 +5,19 @@ var userType;
 var today;
 
 window.onload = function () {
-    userID = sessionStorage.getItem("user_id");
-    userType = sessionStorage.getItem("user_type");
+    if (sessionStorage.getItem("user_id") === null) {
 
-    getExtras();
-    drawTable();
+        alert("Please login to continue.")
+        logout();
+    }
+    else {
+
+        userID = sessionStorage.getItem("user_id");
+        userType = sessionStorage.getItem("user_type");
+
+        getExtras();
+        drawTable();
+    }
 };
 
 function getExtras() {
@@ -40,7 +48,7 @@ async function drawTable() {
 
         if (appointment.appointment_status !== "Completed" && appointmentDate < today) {
 
-            // updateAppointment("Completed", appointment._id);
+            updateAppointment("Completed", appointment._id);
         }
 
         addTableBody(appointment);
@@ -81,19 +89,25 @@ function addTableBody(appointment) {
         appointmentStatus.style.color = "#282321";
     }
 
-    // APPROVE:
-    var approveButton = document.createElement("BUTTON");
-    approveButton.classList.add("green-btn");
-    approveButton.innerHTML = "Approve";
-    approveButton.setAttribute("onclick", "updateAppointment('Approved','".concat(appointment._id).concat("')"));
-    appointmentActions.append(approveButton);
+    if (appointment.appointment_status !== "Completed") {
 
-    // DECLINE:
-    var declineButton = document.createElement("BUTTON");
-    declineButton.classList.add("red-btn");
-    declineButton.innerHTML = "Decline";
-    declineButton.setAttribute("onclick", "updateAppointment('Declined','".concat(appointment._id).concat("')"));
-    appointmentActions.append(declineButton);
+        // APPROVE:
+        var approveButton = document.createElement("BUTTON");
+        approveButton.classList.add("green-btn");
+        approveButton.innerHTML = "Approve";
+        approveButton.setAttribute("onclick", "updateAppointment('Approved','".concat(appointment._id).concat("')"));
+        appointmentActions.append(approveButton);
+
+        // DECLINE:
+        var declineButton = document.createElement("BUTTON");
+        declineButton.classList.add("red-btn");
+        declineButton.innerHTML = "Decline";
+        declineButton.setAttribute("onclick", "updateAppointment('Declined','".concat(appointment._id).concat("')"));
+        appointmentActions.append(declineButton);
+    }
+    else {
+        appointmentActions.innerHTML = "No Action Allowed";
+    }
 }
 
 function addTableHead() {
