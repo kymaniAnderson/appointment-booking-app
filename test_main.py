@@ -1,9 +1,5 @@
-try:
-    from main import app
-    import unittest
-
-except Exception as e:
-    print("Modules may be missing {} ".format(e))
+from main import app
+import unittest
 
 
 ############# TEST VARIABLES #############
