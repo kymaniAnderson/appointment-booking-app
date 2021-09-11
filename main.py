@@ -196,14 +196,14 @@ def update_user(id):
         )
 
         # delete attached appointments
-        appointments = appointment_operations.remove(filt_2)
+        appointments = appointment_operations.delete_many(filt_2)
         result_3 = "Deleted sucessfully"
 
         return {
             "user": result_1,
             "medical_info": result_2,
             "appointments": result_3,
-        }
+        }, 200
 
     else:
         # RETURN USER PROFILE @ALL
