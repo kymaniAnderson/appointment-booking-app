@@ -1,11 +1,10 @@
 from flask import Flask
 from flask_cors import CORS
 from flask_pymongo import PyMongo
-import sendgrid
-from sendgrid.helpers.mail import Mail, Email, To, Content
 from dotenv import load_dotenv
 
 from flask import jsonify, request
+from flask_mail import Mail, Message
 from requests import get
 from marshmallow import Schema, fields, ValidationError
 from bson.json_util import dumps
@@ -36,8 +35,18 @@ patient_operations = mongo.db.patients
 appointment_operations = mongo.db.appointments
 
 # EMAILS
-my_sg = sendgrid.SendGridAPIClient(os.getenv("SENDGRID_API_KEY"))
-from_email = Email(os.getenv("FROM_EMAIL"))
+mail_settings = {
+    "MAIL_SERVER": "smtp.gmail.com",
+    "MAIL_PORT": 465,
+    "MAIL_USE_TLS": False,
+    "MAIL_USE_SSL": True,
+    "MAIL_USERNAME": os.getenv("EMAIL_USER"),
+    "MAIL_PASSWORD": os.getenv("EMAIL_PASSWORD"),
+}
+
+app.config.update(mail_settings)
+mail = Mail(app)
+
 
 ####### (USER ROUTES) #######
 @app.route("/login", methods=["POST"])
@@ -128,19 +137,13 @@ def register():
 
                 user_operations.insert_one(user)
 
-                # send email verification
-                to_email = To(user["user_email"])
-                subject = "Welcome to MedManagment!"
-                content = Content(
-                    "text/plain",
-                    "Your Medmanagement account was sucessfully registered!",
+                msg = Message(
+                    subject="Welcome to MedManagment!",
+                    sender=app.config.get("MAIL_USERNAME"),
+                    recipients=[user["user_email"]],
+                    body="Your Medmanagement account was sucessfully registered!",
                 )
-
-                mail = Mail(from_email, to_email, subject, content)
-                mail_json = mail.get()
-
-                # send an HTTP POST request to /mail/send
-                response = my_sg.client.mail.send.post(request_body=mail_json)
+                mail.send(msg)
 
                 return {
                     "sucess": True,
@@ -354,18 +357,14 @@ def update_appointment_status(id):
     )
     message_body = message_body + "\tDoctor's Email: " + doctor["user_email"]
 
-    to_email = To(patient["user_email"])
-    subject = "Appointment Status Update"
-    content = Content(
-        "text/plain",
-        message_body,
+    msg = Message(
+        subject="Appointment Status Update",
+        sender=app.config.get("MAIL_USERNAME"),
+        recipients=[patient["user_email"]],
+        body=message_body,
     )
 
-    mail = Mail(from_email, to_email, subject, content)
-    mail_json = mail.get()
-
-    # send an HTTP POST request to /mail/send
-    response = my_sg.client.mail.send.post(request_body=mail_json)
+    mail.send(msg)
 
     return jsonify(loads(dumps(updated_appointment)))
 
