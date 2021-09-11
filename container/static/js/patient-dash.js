@@ -49,10 +49,19 @@ async function drawTable() {
     appointments.forEach((appointment) => {
         var temp = appointment.appointment_date;
         var appointmentDate = temp.substr(0, 4).concat(temp.substr(5, 2)).concat(temp.substr(8, 2));
-        console.log(appointmentDate);
+
         if (appointment.appointment_status !== "Completed" && appointmentDate < today) {
 
             updateAppointment("Completed", appointment._id);
+        }
+
+        month1 = appointmentDate.substr(0, 6);
+        month2 = today.substr(0, 6);
+
+        if (appointment.appointment_status === "Approved" && month1 === month2) {
+
+            var upcomingContainer = document.querySelector(".upcoming");
+            upcomingContainer.append(drawUpcomingEvents(appointment));
         }
 
         addTableBody(appointment);
@@ -157,6 +166,29 @@ function drawCharts() {
             }]
         }
     });
+}
+
+function drawUpcomingEvents(appointment) {
+    //START: Card Body as DIV:
+    var upcomingCard = document.createElement("DIV");
+    upcomingCard.classList.add("upcoming-card");
+
+    //START: Card Content as H5:
+    var upcomingDate = document.createElement("H5");
+    upcomingDate.innerHTML = "Date: " + appointment.appointment_date;
+
+    var upcomingTime = document.createElement("H5");
+    upcomingTime.innerHTML = "Time: " + appointment.appointment_time;
+
+    var upcomingReason = document.createElement("P");
+    upcomingReason.innerHTML = "Reason: " + appointment.appointment_reason;
+
+    upcomingCard.append(upcomingDate);
+    upcomingCard.append(upcomingTime);
+    upcomingCard.append(upcomingReason);
+
+    return upcomingCard;
+
 }
 
 function updateAppointment(status, id) {
