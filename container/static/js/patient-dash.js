@@ -10,9 +10,18 @@ window.onload = function () {
 
     // var userIcon = document.getElementById("user-icon");
     // userIcon.innerHTML = userInitials;
-
+    getExtras();
     drawTable();
 };
+
+function getExtras() {
+    return fetch(connectionURL.concat("/extras"))
+        .then((res) => res.json())
+        .then(function (extras) {
+            var extrasDate = document.getElementById("date");
+            extrasDate.innerHTML = extras["date"];
+        });
+}
 
 function getAppointments() {
     return fetch(connectionURL.concat("/personal-appointment/").concat(userID))
@@ -46,6 +55,19 @@ function addTableBody(appointment) {
     appointmentTime.innerHTML = appointment.appointment_time;
     appointmentReason.innerHTML = appointment.appointment_reason;
     appointmentStatus.innerHTML = appointment.appointment_status;
+
+    if (appointment.appointment_status === "Declined") {
+        appointmentStatus.style.color = "#d1350d";
+    }
+    if (appointment.appointment_status === "Approved") {
+        appointmentStatus.style.color = "#2da44e";
+    }
+    if (appointment.appointment_status === "Pending") {
+        appointmentStatus.style.color = "#f6bd3a";
+    }
+    if (appointment.appointment_status === "Completed") {
+        appointmentStatus.style.color = "#282321";
+    }
 }
 
 function addTableHead() {

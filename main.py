@@ -11,6 +11,7 @@ from marshmallow import Schema, fields, ValidationError
 from bson.json_util import dumps
 from json import loads
 from passlib.hash import pbkdf2_sha256
+from datetime import datetime
 
 import uuid
 import os
@@ -376,6 +377,15 @@ def get_personal_appointments(id):
 
     personal_appointments = appointment_operations.find(filt)
     return jsonify(loads(dumps(personal_appointments))), 200
+
+
+@app.route("/extras", methods=["GET"])
+def get_extras():
+    date = datetime.now().strftime("%a, %d/%m/%Y %H:%M")
+
+    json_body = {"date": date}
+
+    return json_body
 
 
 if __name__ == "__main__":

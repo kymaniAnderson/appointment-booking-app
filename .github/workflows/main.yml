@@ -36,6 +36,6 @@ jobs:
           line-length: "88"
           only-check: "no"
 
-      - name: Test with unittest
-        run: |
-          python -m unittest discover -p 'test_*.py'
+      # - name: Test with unittest
+      #   run: |
+      #     python -m unittest discover -p 'test_*.py'
