@@ -1,0 +1,376 @@
+/*          Fonts          */
+@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;500;600&display=swap");
+/*          Colors          */
+/*          Font Sizes          */
+/*          Page Configs          */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background-color: #ffffff;
+}
+
+/*          Text Configs          */
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+a,
+tr {
+  line-height: 150%;
+  color: #282321;
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Bebas Neue";
+}
+
+h4,
+h5,
+p,
+a,
+i,
+tr {
+  font-family: "Montserrat";
+}
+
+h1 {
+  font-size: 72px;
+}
+
+h2 {
+  font-size: 48px;
+  letter-spacing: 8px;
+}
+
+h3 {
+  font-size: 28px;
+}
+
+h4,
+i {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+h5,
+input,
+select,
+textarea {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+p,
+tr {
+  font-size: 16px;
+  font-weight: 400;
+}
+
+a {
+  font-size: 20px;
+  font-weight: 400;
+  text-decoration: none;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+}
+
+@media only screen and (max-width: 800px) {
+  h1 {
+    font-size: 38px;
+  }
+  h2 {
+    font-size: 26px;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  h4,
+  i {
+    font-size: 16px;
+  }
+  h5,
+  input,
+  textarea,
+  select {
+    font-size: 14px;
+  }
+  p,
+  tr {
+    font-size: 12px;
+  }
+}
+
+/*          Button Configs          */
+.purple-btn,
+.red-btn,
+.green-btn {
+  font-size: 22px;
+  font-family: "Montserrat";
+  border: none;
+  border-radius: 1.25rem;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.purple-btn {
+  background-color: #604caf;
+}
+
+.red-btn {
+  background-color: #d1350d;
+}
+
+.green-btn {
+  background-color: #2da44e;
+}
+
+@media only screen and (max-width: 800px) {
+  .purple-btn,
+  .green-btn,
+  .red-btn {
+    font-size: 16px;
+    padding: 0.5rem;
+    border-radius: 0.625rem;
+  }
+}
+
+body {
+  background-color: #f0f0f0;
+}
+
+/*          DESKTOP          */
+/*     SIDEBAR     */
+.nav-container {
+  height: 100vh;
+  width: 85px;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  overflow-x: hidden;
+  background-color: #604caf;
+}
+
+.nav-container .nav-logo {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding-bottom: 3rem;
+  padding-top: 3rem;
+}
+
+.nav-container .nav-items .main-items,
+.nav-container .nav-items .secondary-items {
+  padding: 0px;
+  display: block;
+}
+
+.nav-container .nav-items .main-items li,
+.nav-container .nav-items .secondary-items li {
+  padding: 0.875rem;
+  text-align: center;
+}
+
+.nav-container .nav-items .main-items li i,
+.nav-container .nav-items .secondary-items li i {
+  font-size: 28px;
+  color: #f0f0f0;
+}
+
+.nav-container .nav-items .secondary-items {
+  position: relative;
+  top: 25rem;
+}
+
+.nav-container .nav-items .secondary-items .user-icon {
+  background-color: #8d93ef;
+  border-radius: 50%;
+  color: #f0f0f0;
+  font-size: 20px;
+  font-weight: 600;
+  display: inline-block;
+  height: 42px;
+  width: 42px;
+  line-height: 42px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/*     MAIN CONTENT     */
+.content-container {
+  margin-left: 85px;
+  padding: 3rem;
+}
+
+.content-container .page-title h1 {
+  line-height: 4rem;
+  letter-spacing: 4px;
+  padding-bottom: 1.5rem;
+}
+
+.content-container .page-title h4 {
+  padding-bottom: 1.5rem;
+  letter-spacing: 4px;
+}
+
+.content-container .page-title h4 span {
+  font-weight: 400;
+}
+
+.content-container h3 {
+  letter-spacing: 3px;
+}
+
+body {
+  background-color: #ffffff;
+}
+
+/*          DESKTOP          */
+/*     MAIN CONTENT     */
+.content-container .page-content {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 70% auto;
+      grid-template-columns: 70% auto;
+}
+
+.content-container .page-content h3,
+.content-container .page-content h2 {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.content-container .page-content .content-left {
+  padding-right: 2.5rem;
+}
+
+.content-container .page-content .content-left .charts {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin-bottom: 3rem;
+}
+
+.content-container .page-content .content-left .charts .chart-1,
+.content-container .page-content .content-left .charts .chart-2 {
+  border-radius: 1.25rem;
+  height: 250px;
+  max-height: 100%;
+  padding: 1rem;
+  background-color: #f0f0f0;
+  text-align: center;
+}
+
+.content-container .page-content .content-left .charts .chart-1 canvas,
+.content-container .page-content .content-left .charts .chart-2 canvas {
+  max-width: 100%;
+  max-height: 90%;
+}
+
+.content-container .page-content .content-left .charts .chart-1 {
+  width: 50%;
+}
+
+.content-container .page-content .content-left .charts .chart-2 {
+  width: 40%;
+}
+
+.content-container .page-content .content-left .appointment-table {
+  border-radius: 1.25rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+.content-container .page-content .content-left .appointment-table table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.content-container .page-content .content-left .appointment-table table tr {
+  text-align: left;
+  padding: 0.5rem;
+  border: solid;
+  border-width: 3px 0;
+  border-color: #e1e1e1;
+}
+
+.content-container .page-content .content-left .appointment-table table thead tr {
+  font-weight: 600;
+  border-top: none;
+}
+
+.content-container .page-content .content-left .appointment-table table tbody tr {
+  border-top: none;
+}
+
+.content-container .page-content .content-left .appointment-table table tbody tr:hover {
+  background-color: #e1e1e1;
+}
+
+.content-container .page-content .content-right {
+  padding-left: 2.5rem;
+}
+
+.content-container .page-content .content-right .upcoming-container {
+  border-radius: 1.25rem;
+  padding: 1rem;
+  background-color: #f0f0f0;
+}
+
+.content-container .page-content .content-right .upcoming-container .upcoming {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.content-container .page-content .content-right .upcoming-container .upcoming .upcoming-card {
+  margin-bottom: 1rem;
+  width: 100%;
+  border-radius: 1.25rem;
+  padding: 1rem;
+  background-color: #e1e1e1;
+}
+
+.content-container .page-content .content-right .upcoming-container .upcoming .upcoming-card h5,
+.content-container .page-content .content-right .upcoming-container .upcoming .upcoming-card p {
+  text-align: center;
+  font-weight: 600;
+  padding-bottom: 0.5rem;
+}
+
+.content-container .page-content .content-right .upcoming-container .upcoming .upcoming-card:last-child {
+  margin-bottom: 4rem;
+}
+
+.content-container .page-content .content-right .upcoming-container .add-button {
+  text-align: center;
+}
+/*# sourceMappingURL=patient-dash.css.map */
