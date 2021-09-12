@@ -1,3 +1,3 @@
 window.onload = function () {
-    window.location.href = "login.html";
+    window.location.href = "container/templates/login.html";
 };
