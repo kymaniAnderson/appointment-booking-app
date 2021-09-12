@@ -137,6 +137,7 @@ def register():
 
                 user_operations.insert_one(user)
 
+                # email user's registration confirmation
                 msg = Message(
                     subject="Welcome to MedManagment!",
                     sender=app.config.get("MAIL_USERNAME"),
@@ -380,6 +381,7 @@ def get_personal_appointments(id):
 
 @app.route("/extras", methods=["GET"])
 def get_extras():
+    # getting extras for users
     date = datetime.now().strftime("%a, %d/%m/%Y %H:%M")
 
     json_body = {"date": date}

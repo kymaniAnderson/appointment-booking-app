@@ -4,6 +4,7 @@ var userID;
 var userType;
 var today;
 
+// ensure user is logged in
 window.onload = function () {
     if (sessionStorage.getItem("user_id") === null) {
 
@@ -20,6 +21,7 @@ window.onload = function () {
     }
 };
 
+// @GET: get extras
 function getExtras() {
     return fetch(connectionURL.concat("/extras"))
         .then((res) => res.json())
@@ -33,12 +35,14 @@ function getExtras() {
         });
 }
 
+// @GET: retrieve all appointments
 function getAppointments() {
     return fetch(connectionURL.concat("/appointment"))
         .then((res) => res.json())
         .then((json) => json);
 }
 
+// create table with appointments
 async function drawTable() {
     let appointments = await getAppointments();
 
@@ -57,7 +61,7 @@ async function drawTable() {
 }
 
 
-// POPULATE TABLE:
+// populate the table body
 function addTableBody(appointment) {
     var table = document.getElementById("appointment-table");
     var row = table.insertRow(0);
@@ -76,29 +80,34 @@ function addTableBody(appointment) {
     appointmentReason.innerHTML = appointment.appointment_reason;
     appointmentStatus.innerHTML = appointment.appointment_status;
 
+    // change color based on status
     if (appointment.appointment_status === "Declined") {
+
         appointmentStatus.style.color = "#d1350d";
     }
     if (appointment.appointment_status === "Approved") {
+
         appointmentStatus.style.color = "#2da44e";
     }
     if (appointment.appointment_status === "Pending") {
+
         appointmentStatus.style.color = "#f6bd3a";
     }
     if (appointment.appointment_status === "Completed") {
+
         appointmentStatus.style.color = "#282321";
     }
 
     if (appointment.appointment_status !== "Completed") {
 
-        // APPROVE:
+        // approve button:
         var approveButton = document.createElement("BUTTON");
         approveButton.classList.add("green-btn");
         approveButton.innerHTML = "Approve";
         approveButton.setAttribute("onclick", "updateAppointment('Approved','".concat(appointment._id).concat("')"));
         appointmentActions.append(approveButton);
 
-        // DECLINE:
+        // decline button:
         var declineButton = document.createElement("BUTTON");
         declineButton.classList.add("red-btn");
         declineButton.innerHTML = "Decline";
@@ -106,10 +115,13 @@ function addTableBody(appointment) {
         appointmentActions.append(declineButton);
     }
     else {
+
+        // remove actions from completed appointments
         appointmentActions.innerHTML = "No Action Allowed";
     }
 }
 
+// table head is static
 function addTableHead() {
     var table = document.getElementById("appointment-table");
     var header = table.createTHead();
@@ -130,6 +142,7 @@ function addTableHead() {
     appointmentActionsHead.innerHTML = "Actions";
 }
 
+// @PATCH: update the appointment status
 function updateAppointment(status, id) {
 
     jsonBody = {
@@ -150,6 +163,7 @@ function updateAppointment(status, id) {
     location.reload();
 }
 
+// redirect to login and clear user session
 function logout() {
     sessionStorage.clear();
     window.location.href = "login.html"

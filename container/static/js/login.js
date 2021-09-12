@@ -1,11 +1,12 @@
 // VARIABLE DECLARATIONS:
 var connectionURL = "http://45.79.219.166:80";
 
+// clear the user session
 window.onload = function () {
   sessionStorage.clear();
 };
 
-// LOGIN: 
+// @POST: login user 
 document
   .getElementById("login-submit")
   .addEventListener("click", function (event) {
@@ -28,6 +29,7 @@ document
     })
       .then((res) => res.json())
       .then(function (mssg) {
+        // if login is true redirect based on user type
         if (mssg["login"]) {
 
           sessionStorage.setItem("user_id", mssg["user_id"]);
@@ -42,6 +44,7 @@ document
             window.location.href = "doctor-dash.html";
           }
         }
+        // else display the error message we got back
         else {
 
           var errMessage = document.getElementById("err-message-login");
@@ -52,7 +55,7 @@ document
   });
 
 
-// REGISTER: 
+// @POST: register a new user
 document
   .getElementById("register-submit")
   .addEventListener("click", function (event) {
@@ -66,6 +69,7 @@ document
     let userPassword = document.getElementById("password").value;
     let confirmPassword = document.getElementById("confirm-password").value;
 
+    // ensure passwords match
     var confirmation;
     if (userPassword === confirmPassword) {
 
@@ -119,7 +123,7 @@ document
       });
   });
 
-//CREATE MEDICAL PROFILE:
+//@POST: create medical profile
 function createMedicalProfile(id) {
   let jsonBody = {
     "patient_gender": "NULL",
@@ -141,7 +145,7 @@ function createMedicalProfile(id) {
 
 }
 
-// TOGGLE FORM:
+// toggle between login and register forms
 function toggleLogin() {
   var loginForm = document.getElementById("login-form");
   var registerForm = document.getElementById("register-form");

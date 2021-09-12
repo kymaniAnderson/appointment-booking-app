@@ -3,6 +3,7 @@ var connectionURL = "http://45.79.219.166:80";
 var userID;
 var userType;
 
+// ensure user is logged in
 window.onload = function () {
     if (sessionStorage.getItem("user_id") === null) {
 
@@ -16,7 +17,7 @@ window.onload = function () {
     }
 };
 
-// BOOK APPOINTMENT:
+// @POST: book a new user appointment
 document.getElementById("appointment-submit").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -44,6 +45,7 @@ document.getElementById("appointment-submit").addEventListener("click", function
     window.location.href = "patient-dash.html";
 });
 
+// redirect to login and clear user session
 function logout() {
     sessionStorage.clear();
     window.location.href = "login.html";

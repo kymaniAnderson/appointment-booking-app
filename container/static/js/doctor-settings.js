@@ -3,6 +3,7 @@ var connectionURL = "http://45.79.219.166:80";
 var userID;
 var userType;
 
+// ensure user is logged in
 window.onload = function () {
     if (sessionStorage.getItem("user_id") === null) {
 
@@ -18,7 +19,7 @@ window.onload = function () {
     }
 };
 
-// UPDATE USER PROFILE:
+// @PATCH: update doctor profile info
 document.getElementById("update-profile-submit").addEventListener("click", function (event) {
     event.preventDefault();
 
@@ -47,13 +48,14 @@ document.getElementById("update-profile-submit").addEventListener("click", funct
     location.reload();
 });
 
-// VIEW USER PROFILE:
+// @GET: get doctor profile current info
 function getUser() {
     return fetch(connectionURL.concat("/user/").concat(userID))
         .then((res) => res.json())
         .then((json) => json);
 }
 
+// show doctor profile current info
 async function userProfileView() {
     let user = await getUser();
 
@@ -68,13 +70,7 @@ async function userProfileView() {
     userPhone.innerHTML = user.user_phone;
 }
 
-// LOGOUT
-function logout() {
-    sessionStorage.clear();
-    window.location.href = "login.html";
-}
-
-// DELETE ACCOUNT
+// @DELETE: remove all connected user data
 function deleteAcc() {
     var confirmation = confirm("Are you sure you want to delete your account?");;
 
@@ -93,3 +89,8 @@ function deleteAcc() {
     }
 }
 
+// redirect to login and clear user session
+function logout() {
+    sessionStorage.clear();
+    window.location.href = "login.html";
+}

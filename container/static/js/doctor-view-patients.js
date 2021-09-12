@@ -3,6 +3,7 @@ var connectionURL = "http://45.79.219.166:80";
 var userID;
 var userType;
 
+// ensure user is logged in
 window.onload = function () {
     if (sessionStorage.getItem("user_id") === null) {
 
@@ -19,12 +20,14 @@ window.onload = function () {
     }
 };
 
+// @GET: get all users
 function getUsers() {
     return fetch(connectionURL.concat("/users"))
         .then((res) => res.json())
         .then((json) => json);
 }
 
+// filter users for patient type and create table
 async function drawTable() {
     let users = await getUsers();
 
@@ -37,7 +40,7 @@ async function drawTable() {
     addTableHead();
 }
 
-// POPULATE PATIENT TABLE:
+// populate the table body
 function addTableBody(patient) {
     var table = document.getElementById("patient-table");
     var row = table.insertRow(0);
@@ -56,7 +59,7 @@ function addTableBody(patient) {
     patientEmail.innerHTML = patient.user_email;
     patientContact.innerHTML = patient.user_phone;
 
-    // VIEW MEDICAL:
+    // view patient's medical data button:
     var viewMedicalButton = document.createElement("BUTTON");
     viewMedicalButton.classList.add("purple-btn");
     viewMedicalButton.innerHTML = "View Medical";
@@ -64,6 +67,7 @@ function addTableBody(patient) {
     patientActions.append(viewMedicalButton);
 }
 
+// table head is static
 function addTableHead() {
     var table = document.getElementById("patient-table");
     var header = table.createTHead();
@@ -84,13 +88,14 @@ function addTableHead() {
     patientActionsHead.innerHTML = "Actions";
 }
 
-// VIEW MEDICAL PROFILE:
+// @GET: retrieve medical data using ID
 function getMedical(id) {
     return fetch(connectionURL.concat("/medical-profile/").concat(id))
         .then((res) => res.json())
         .then((json) => json);
 }
 
+// create card with medical data
 async function medicalProfileView(id) {
     let medical = await getMedical(id);
 
@@ -109,6 +114,7 @@ async function medicalProfileView(id) {
     togglePopup();
 }
 
+// toggle patient card pop-up
 function togglePopup() {
     var blur = document.getElementById("blur");
     blur.classList.toggle("active");
@@ -116,10 +122,12 @@ function togglePopup() {
     popup.classList.toggle("active");
 }
 
+// reload page on back button pressed
 document.getElementById("back").addEventListener("click", function () {
     window.location.reload();
 });
 
+// redirect to login and clear user session
 function logout() {
     sessionStorage.clear();
     window.location.href = "login.html"

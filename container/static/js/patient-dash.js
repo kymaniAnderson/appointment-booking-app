@@ -9,6 +9,7 @@ var pieChart;
 var xAxis, yAxis;
 var barChart;
 
+// ensure user is logged in
 window.onload = function () {
     if (sessionStorage.getItem("user_id") === null) {
 
@@ -29,6 +30,7 @@ window.onload = function () {
     }
 };
 
+// @GET: get extras
 function getExtras() {
     return fetch(connectionURL.concat("/extras"))
         .then((res) => res.json())
@@ -42,12 +44,14 @@ function getExtras() {
         });
 }
 
+// @GET: retrieve all specific appointments
 function getAppointments() {
     return fetch(connectionURL.concat("/personal-appointment/").concat(userID))
         .then((res) => res.json())
         .then((json) => json);
 }
 
+// create table with specifc appointments
 async function drawTable() {
     let appointments = await getAppointments();
 
@@ -79,8 +83,7 @@ async function drawTable() {
     addTableHead();
 }
 
-
-// POPULATE TABLE:
+// populate the table body
 function addTableBody(appointment) {
     var table = document.getElementById("appointment-table");
     var row = table.insertRow(0);
@@ -97,20 +100,26 @@ function addTableBody(appointment) {
     appointmentReason.innerHTML = appointment.appointment_reason;
     appointmentStatus.innerHTML = appointment.appointment_status;
 
+    // change color based on status
     if (appointment.appointment_status === "Declined") {
+
         appointmentStatus.style.color = "#d1350d";
     }
     if (appointment.appointment_status === "Approved") {
+
         appointmentStatus.style.color = "#2da44e";
     }
     if (appointment.appointment_status === "Pending") {
+
         appointmentStatus.style.color = "#f6bd3a";
     }
     if (appointment.appointment_status === "Completed") {
+
         appointmentStatus.style.color = "#282321";
     }
 }
 
+// table head is static
 function addTableHead() {
     var table = document.getElementById("appointment-table");
     var header = table.createTHead();
@@ -129,6 +138,7 @@ function addTableHead() {
     appointmentStatusHead.innerHTML = "Status";
 }
 
+// draw chart stats
 function drawCharts() {
     var chart1 = document.getElementById('chart-1').getContext('2d');
     barChart = new Chart(chart1, {
@@ -174,28 +184,31 @@ function drawCharts() {
 }
 
 function drawUpcomingEvents(appointment) {
-    //START: Card Body as DIV:
+    // card body as DIV:
     var upcomingCard = document.createElement("DIV");
     upcomingCard.classList.add("upcoming-card");
 
-    //START: Card Content as H5:
+    // card date as H5:
     var upcomingDate = document.createElement("H5");
     upcomingDate.innerHTML = "Date: " + appointment.appointment_date;
 
+    // card time as H5:
     var upcomingTime = document.createElement("H5");
     upcomingTime.innerHTML = "Time: " + appointment.appointment_time;
 
+    // card reason as H5:
     var upcomingReason = document.createElement("P");
     upcomingReason.innerHTML = "Reason: " + appointment.appointment_reason;
 
+    // append card content to card body
     upcomingCard.append(upcomingDate);
     upcomingCard.append(upcomingTime);
     upcomingCard.append(upcomingReason);
 
     return upcomingCard;
-
 }
 
+// @PATCH: update appointment status
 function updateAppointment(status, id) {
 
     jsonBody = {
@@ -216,6 +229,7 @@ function updateAppointment(status, id) {
     location.reload();
 }
 
+// redirect to login and clear user session
 function logout() {
     sessionStorage.clear();
     window.location.href = "login.html"
