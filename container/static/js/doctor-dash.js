@@ -1,5 +1,5 @@
 // VARIABLE DECLARATIONS:
-var connectionURL = "http://192.168.100.230:3000";
+var connectionURL = "http://45.79.219.166:80";
 var userID;
 var userType;
 var today;
