@@ -1,5 +1,5 @@
 // VARIABLE DECLARATIONS:
-var connectionURL = "http://45.79.219.166:80";
+var connectionURL = "https://www.kymani-andersons-api.live";
 var userID;
 var userType;
 
