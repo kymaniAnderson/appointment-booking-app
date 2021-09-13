@@ -1,4 +1,3 @@
 __pycache__
 .vscode
-container/static/**/*.map
 .env
