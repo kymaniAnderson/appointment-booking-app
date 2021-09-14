@@ -102,9 +102,9 @@ document
         if (mssg["sucess"]) {
 
           sessionStorage.setItem("user_id", mssg["user_id"]);
-          sessionStorage.setItem("user_type", jsonBody["user_type"]);
+          sessionStorage.setItem("user_type", mssg["user_type"]);
 
-          if (jsonBody["user_type"] === "patient") {
+          if (mssg["user_type"] === "patient") {
 
             createMedicalProfile(mssg["user_id"]);
             window.location.href = "patient-dash.html";
