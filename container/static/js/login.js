@@ -101,18 +101,19 @@ document
       .then(function (mssg) {
         if (mssg["sucess"]) {
 
+          console.log(mssg["user_id"]);
+          console.log(mssg["user_email"]);
+
           sessionStorage.setItem("user_id", mssg["user_id"]);
           sessionStorage.setItem("user_type", mssg["user_type"]);
 
           if (mssg["user_type"] === "patient") {
 
             createMedicalProfile(mssg["user_id"]);
-            window.location.href = "patient-dash.html";
           }
-          else {
 
-            window.location.href = "doctor-dash.html";
-          }
+          alert("User Created: \nWelcome to Medmanagment!");
+          location.reload();
         }
         else {
 
