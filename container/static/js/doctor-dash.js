@@ -160,11 +160,11 @@ function updateAppointment(status, id) {
         .then((res) => res.json())
         .then((json) => console.log(json));
 
-    location.reload();
+    //location.reload();
 }
 
 // redirect to login and clear user session
 function logout() {
     sessionStorage.clear();
-    window.location.href = "login.html"
+    window.location.href = "login.html";
 }
