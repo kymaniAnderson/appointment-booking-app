@@ -106,10 +106,7 @@ document
 
           // sessionStorage.setItem("user_id", mssg["user_id"]);
           // sessionStorage.setItem("user_type", mssg["user_type"]);
-
-          setTimeout(function () {
-            createMedicalProfile(mssg["user_id"]);
-          }, 500);
+          createMedicalProfile(jsonBody["user_id"]);
 
           alert("User Created: \nWelcome to Medmanagment!");
           location.reload();
@@ -126,11 +123,11 @@ document
 //@POST: create medical profile
 function createMedicalProfile(id) {
   let jsonBody = {
-    "patient_gender": "NULL",
-    "patient_dob": "NULL",
-    "patient_blood_type": "NULL",
-    "patient_height": "NULL",
-    "patient_weight": "NULL",
+    "patient_gender": "NOT ADDED",
+    "patient_dob": "NOT ADDED",
+    "patient_blood_type": "NOT ADDED",
+    "patient_height": "NOT ADDED",
+    "patient_weight": "NOT ADDED",
   };
 
   fetch(connectionURL.concat("/medical-profile/").concat(id), {
