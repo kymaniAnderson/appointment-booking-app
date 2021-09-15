@@ -76,29 +76,37 @@ async function userProfileView() {
 document.getElementById("update-patient-data-submit").addEventListener("click", function (event) {
     event.preventDefault();
 
-    let patientGender = document.getElementById("gender").value;
-    let patientDOB = document.getElementById("dob").value;
-    let patientBloodType = document.getElementById("blood-type").value;
-    let patientHeight = document.getElementById("height").value;
-    let patientWeight = document.getElementById("weight").value;
+    try {
 
-    jsonBody = {};
+        let patientGender = document.getElementById("gender").value;
+        let patientDOB = document.getElementById("dob").value;
+        let patientBloodType = document.getElementById("blood-type").value;
+        let patientHeight = document.getElementById("height").value;
+        let patientWeight = document.getElementById("weight").value;
 
-    if (patientGender !== "") jsonBody["patient_gender"] = patientGender;
-    if (patientDOB !== "") jsonBody["patient_dob"] = patientDOB;
-    if (patientBloodType !== "") jsonBody["patient_blood_type"] = patientBloodType;
-    if (patientHeight !== "") jsonBody["patient_height"] = patientHeight;
-    if (patientWeight !== "") jsonBody["patient_weight"] = patientWeight;
+        jsonBody = {};
 
-    fetch(connectionURL.concat("/medical-profile/").concat(userID), {
-        method: "PATCH",
-        body: JSON.stringify(jsonBody),
-        headers: {
-            "Content-type": "application/json",
-        },
-    })
-        .then((res) => res.json())
-        .then((json) => console.log(json));
+        if (patientGender !== "") jsonBody["patient_gender"] = patientGender;
+        if (patientDOB !== "") jsonBody["patient_dob"] = patientDOB;
+        if (patientBloodType !== "") jsonBody["patient_blood_type"] = patientBloodType;
+        if (patientHeight !== "") jsonBody["patient_height"] = patientHeight;
+        if (patientWeight !== "") jsonBody["patient_weight"] = patientWeight;
+
+        fetch(connectionURL.concat("/medical-profile/").concat(userID), {
+            method: "PATCH",
+            body: JSON.stringify(jsonBody),
+            headers: {
+                "Content-type": "application/json",
+            },
+        })
+            .then((res) => res.json())
+            .then((json) => console.log(json));
+
+    } catch (error) {
+
+        createMedicalProfile(userID);
+    }
+
 
     location.reload();
 });
@@ -144,6 +152,27 @@ function deleteAcc() {
 
         logout();
     }
+}
+
+//@POST: create medical profile
+function createMedicalProfile(id) {
+    let jsonBody = {
+        "patient_gender": "NOT ADDED",
+        "patient_dob": "NOT ADDED",
+        "patient_blood_type": "NOT ADDED",
+        "patient_height": "NOT ADDED",
+        "patient_weight": "NOT ADDED",
+    };
+
+    fetch(connectionURL.concat("/medical-profile/").concat(id), {
+        method: "POST",
+        body: JSON.stringify(jsonBody),
+        headers: {
+            "Content-type": "application/json",
+        },
+    })
+        .then((res) => res.json())
+        .then((json) => console.log(json));
 }
 
 // redirect to login and clear user session
