@@ -26,7 +26,7 @@ window.onload = function () {
 
         setTimeout(function () {
             drawCharts();
-        }, 250);
+        }, 500);
     }
 };
 

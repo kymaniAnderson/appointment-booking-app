@@ -101,16 +101,15 @@ document
       .then(function (mssg) {
         if (mssg["sucess"]) {
 
-          console.log(mssg["user_id"]);
-          console.log(mssg["user_email"]);
+          // console.log(mssg["user_id"]);
+          // console.log(mssg["user_email"]);
 
-          sessionStorage.setItem("user_id", mssg["user_id"]);
-          sessionStorage.setItem("user_type", mssg["user_type"]);
+          // sessionStorage.setItem("user_id", mssg["user_id"]);
+          // sessionStorage.setItem("user_type", mssg["user_type"]);
 
-          if (mssg["user_type"] === "patient") {
-
+          setTimeout(function () {
             createMedicalProfile(mssg["user_id"]);
-          }
+          }, 500);
 
           alert("User Created: \nWelcome to Medmanagment!");
           location.reload();
